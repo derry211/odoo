@@ -1,0 +1,199 @@
+<odoo>
+	<data>
+        <template id="external_layout_faktur_pajak">
+	        <div class="header o_standard_header">
+	        </div>
+	        <div class="article o_report_layout_standard">
+	          <t t-raw="0" />
+	        </div>
+	    </template>
+
+        <!-- Main template -->
+        <template id="report_faktur_pajak">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="account_efaktur.report_faktur_pajak_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <!-- translatable template -->
+		<template id="report_faktur_pajak_document">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+            <t t-if="not o and doc"> <t t-set="o" t-value="doc"/> </t>
+            <t t-if="o and 'company_id' in o"> <t t-set="company" t-value="o.company_id.sudo()"/></t>
+            <t t-if="not o or not 'company_id' in o"> <t t-set="company" t-value="res_company"/></t>
+            <t t-call="account_efaktur.external_layout_faktur_pajak">
+                <label class="col-xs-12" style="text-align:center"><strong style="font-size: 16px;font-weight: bold;">Faktur Pajak</strong></label>
+                
+                <div style="font-size: 14px;border: 1px solid black" class="col-md-12">
+                    <table class="table table-bordered" style="table-layout:auto">
+                        <tr>
+                            <td colspan="3"><span>Kode dan Nomor Seri Faktur Pajak : 010.<span t-field="o.no_faktur"/></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Pengusaha Kena Pajak</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div class="row">
+                                    <label class="col-xs-2">Nama </label><span>: <span t-field="o.company_id.partner_id.name"/></span>
+                                </div>
+                                <div class="row">
+                                    <label class="col-xs-2">Alamat </label><span>: <span t-field="o.company_id.partner_id.street"/>
+                                    <span t-if="o.company_id.partner_id.blok"> Blok <span t-field="o.company_id.partner_id.blok"/></span>
+                                    <span t-if="o.company_id.partner_id.nomor"> No.<span t-field="o.company_id.partner_id.nomor"/></span>
+                                    <span t-if="o.company_id.partner_id.rt"> RT.<span t-field="o.company_id.partner_id.rt"/></span>
+                                    <span t-if="o.company_id.partner_id.rw"> RW.<span t-field="o.company_id.partner_id.rw"/></span>
+                                    <span t-if="o.company_id.partner_id.kelurahan_id"> , Kel.<span t-field="o.company_id.partner_id.kelurahan_id.name"/></span>
+                                    <span t-if="o.company_id.partner_id.kecamatan_id"> , Kec.<span t-field="o.company_id.partner_id.kecamatan_id.name"/></span>
+                                    <span t-if="o.company_id.partner_id.city_id"> , Kota/Kab.<span t-field="o.company_id.partner_id.city_id.name"/></span>
+                                    <span t-if="o.company_id.partner_id.state_id"> <span t-field="o.company_id.partner_id.state_id.name"/></span>
+                                    <span t-if="o.company_id.partner_id.zip"> <span t-field="o.company_id.partner_id.zip"/></span></span>
+                                </div>
+                                <div class="row">
+                                    <label class="col-xs-2">NPWP </label><span>: <span t-field="o.company_id.partner_id.npwp"/></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Pembeli Barang Kena Pajak / Penerima Jasa Kena Pajak</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <t t-if="o.partner_id.parent_id">
+                                    <t t-set="partner_company" t-value="o.partner_id.parent_id"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="partner_company" t-value="o.partner_id"/>
+                                </t>
+                                <div class="row">
+                                    <label class="col-xs-2">Nama </label><span>: <span t-field="partner_company.name"/></span>
+                                </div>
+<!--                                 <t t-if="not partner_company.npwp">
+                                    <div class="row">
+                                        <label class="col-xs-2">NIK / Paspor </label><span>: <span t-field="partner_company.nik"/></span>
+                                    </div>
+                                </t> -->
+                                <div class="row">
+                                    <label class="col-xs-2">Alamat </label><span>: <span t-field="partner_company.street"/>
+                                    <span t-if="partner_company.blok"> Blok <span t-field="partner_company.blok"/></span>
+                                    <span t-if="partner_company.nomor"> No.<span t-field="partner_company.nomor"/></span>
+                                    <span t-if="partner_company.rt"> RT.<span t-field="partner_company.rt"/></span>
+                                    <span t-if="partner_company.rw"> RW.<span t-field="partner_company.rw"/></span>
+                                    <span t-if="partner_company.kelurahan_id"> , Kel.<span t-field="partner_company.kelurahan_id.name"/></span>
+                                    <span t-if="partner_company.kecamatan_id"> , Kec.<span t-field="partner_company.kecamatan_id.name"/></span>
+                                    <span t-if="partner_company.city_id"> , Kota/Kab.<span t-field="partner_company.city_id.name"/></span>
+                                    <span t-if="partner_company.state_id"> <span t-field="partner_company.state_id.name"/></span>
+                                    <span t-if="partner_company.zip"> <span t-field="partner_company.zip"/></span></span>
+                                </div>
+                                <div class="row">
+                                    <label class="col-xs-2">NPWP </label>
+                                    <t t-if="partner_company.npwp">
+                                        <span>: <span t-field="partner_company.npwp"/></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>: 00.000.000.0-000.000</span>
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:8%">No.</td>
+                            <td>Nama Barang Kena Pajak / Jasa Kena Pajak</td>
+                            <td>Harga Jual/Penggantian/Uang Muka/Termin</td>
+                        </tr>
+                        <t t-set="i" t-value="1"/>
+                        <t t-set="tot_jual" t-value="0"/>
+                        <t t-set="tot_diskon" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids.sorted(key=lambda r: r.product_id.name)" t-as="line">
+                            <t t-if="line.invoice_line_tax_ids and sum([tax.amount for tax in line.invoice_line_tax_ids]) != 0">
+                                <tr>
+                                    <td class="text-center" style="width:8%"><span t-esc="i"/></td>
+                                    <td>
+                                        <span t-esc="line.name"/><br/>
+                                        Rp <span t-esc="line.price_unit"/> x <span t-esc="line.quantity"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="line.price_unit * line.quantity"/>
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                                <t t-set="tot_jual" t-value="tot_jual + line.price_unit * line.quantity"/>
+                                <t t-set="tot_diskon" t-value="tot_diskon + line.price_unit * line.discount/100 * line.quantity "/>
+                            </t>
+                        </t>
+                        <tr>
+                            <td colspan="2">Harga Jual / Penggantian</td>
+                            <td class="text-right"><span t-esc="tot_jual" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dikurangi Potongan Harga</td>
+                            <td class="text-right"><span t-esc="tot_diskon" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dikurangi Uang Muka</td>
+                            <td class="text-right">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Dasar Pengenaan Pajak</td>
+                            <td class="text-right"><span t-esc="tot_jual - tot_diskon" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">PPN = 10% x Dasar Pengenaan Pajak</td>
+                            <!-- <td class="text-right"><span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/></td> -->
+                            <td class="text-right"><span t-esc="o.amount_tax" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Total PPnBM (Pajak Penjualan Barang Mewah)</td>
+                            <td class="text-right">0.00</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <p>Sesuai dengan ketentuan yang berlaku, Direktorat Jenderal Pajak mengatur bahwa Faktur Pajak ini telah ditandatangani secara elektronik sehingga tidak diperlukan tanda tangan basah pada Faktur Pajak ini.</p>
+                </div>
+                <div class="col-md-offset-7 col-md-5">
+                    <span t-field="o.company_id.partner_id.city_id.name"/>, <span t-esc="datetime.datetime.strptime(o.date_invoice, '%Y-%m-%d').strftime('%d %B %Y')"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <span t-field="o.company_id.partner_id.name"/>
+                </div>
+            </t>
+		</template>
+
+        <report
+          string="Cetak Faktur Pajak"
+	      id="action_report_faktur_pajak"
+	      model="account.invoice"
+	      report_type="qweb-pdf"
+	      name="account_efaktur.report_faktur_pajak"
+	      file="account_efaktur.report_faktur_pajak"
+          print_report_name="'Faktur Pajak - %s - %s' % (object.partner_id.parent_id.name or object.partner_id.name or '', object.name)"
+        />
+
+        <record id="laporan_faktur_pajak" model="report.paperformat">
+		    <field name="name">Faktur Pajak Report Format</field>
+		    <field name="default" eval="True" />
+		    <field name="format">A4</field>
+		    <field name="page_height">0</field>
+		    <field name="page_width">0</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">40</field>
+		    <field name="margin_bottom">28</field>
+		    <field name="margin_left">7</field>
+		    <field name="margin_right">7</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">35</field>
+		    <field name="dpi">90</field>
+		</record>
+
+	    <record id="action_report_faktur_pajak" model="ir.actions.report">
+	        <field name="paperformat_id" ref="account_efaktur.laporan_faktur_pajak"/>
+	    </record>
+
+	</data>
+</odoo>

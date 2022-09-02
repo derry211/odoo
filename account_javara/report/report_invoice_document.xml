@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@t-if='o.date_invoice']" position="after">
+                <div class="col-xs-2" t-if="o.commitment_date">
+                    <strong>Commitment Date:</strong>
+                    <p t-esc="o.get_commitment_date()"/>
+                </div>
+            </xpath>
+            <xpath expr="//p[@t-if='o.comment']" position="replace">
+                <p t-if="o.comment">
+                    <span t-raw="o.comment"/>
+                </p>
+            </xpath>
+        </template>
+    </data>
+</odoo>

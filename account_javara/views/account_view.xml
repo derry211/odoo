@@ -1,0 +1,38 @@
+<odoo>
+	<record model="ir.ui.view" id="invoice_form">
+		<field name="name">account.invoice.form</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='date_invoice']" position="after">
+				<field name="date_ttf" />
+			</xpath>
+			<xpath expr="//field[@name='payment_term_id']" position="after">
+				<field name="commitment_date"/>
+			</xpath>
+			<xpath expr="//field[@name='comment']" position="replace"/>
+			<page name="other_info" position="after">
+			    <page string="Notes">
+					<group>
+						<field name="comment" widget="html" nolabel="1" readonly="0" attrs="{'readonly': [('state','=','cancel')]}" />
+					</group>
+				</page>
+			</page>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="invoice_form_cancel_inherit">
+		<field name="name">invoice.date.form</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account_cancel.invoice_form_cancel_inherit"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='date_invoice']" position="after">
+				<field name="is_cancelable" invisible="1"/>
+			</xpath>
+			<xpath expr="//button[@name='action_invoice_cancel']" position="attributes">
+				<attribute name="attrs">{'invisible': [('is_cancelable','=',False)]}</attribute>
+				<attribute name="states"></attribute>
+			</xpath>
+		</field>
+	</record>
+	<menuitem name="Invoices" action="account.action_account_invoice_report_all" id="account.menu_action_account_invoice_report_all" parent="sale.menu_sale_report" sequence="20"/>
+</odoo>

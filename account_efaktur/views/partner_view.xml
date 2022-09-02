@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_partner_form" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+			<field name="lang" position="after">
+				<field name="npwp" />
+<!-- 				<field name="nik" attrs="{'invisible': [('npwp', '!=', False)]}"/> -->
+			</field>
+			<field name="street2" position="after">
+				<field name="blok" placeholder="blok" class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" />
+				<field name="nomor" placeholder="nomor" class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" />
+				<field name="rt" placeholder="RT" class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" />
+				<field name="rw" placeholder="RW" class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" />
+			</field>
+		</field>
+	</record>
+</odoo>

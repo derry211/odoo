@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <record model="ir.ui.view" id="purchase_order_form">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml"> -->
+                <!-- <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="date_orders_old"/>
+                </xpath> -->
+            <!-- </field>
+        </record> -->
+        <!-- <record model="ir.ui.view" id="account_invoice_supplier_form">
+            <field name="name">account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="date_orders_old" invisible="1" string="Bill Date Old"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="account_invoice_form">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="date_orders_old" invisible="1" string="Invoice Date Old"/>
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</odoo>

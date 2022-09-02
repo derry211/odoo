@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_invoice_report_pivot" model="ir.ui.view">
+            <field name="name">account.invoice.report.pivot</field>
+            <field name="model">account.invoice.report</field>
+            <field name="inherit_id" ref="account.view_account_invoice_report_pivot"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='price_total']" position="after">
+                    <field name="total_without_discount" type="measure"/>
+                    <field name="total_discount" type="measure"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

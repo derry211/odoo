@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="account_invoice_custom_reports" inherit_id="account.report_invoice_document_with_payments">
+            <xpath expr="//div[@class='row mt32 mb32']" position="after">
+                <p>Vehicle Number : ________________________</p>
+	        </xpath>
+            <xpath expr="//table[@class='table table-condensed']/thead/tr/th[3]" position="after">
+                <th>Best Before Date</th>
+                <th>Lot Number</th>
+	        </xpath>
+            <xpath expr="//table[@class='table table-condensed']/tbody/tr/td[3]" position="after">
+                <td></td>
+                <td></td>
+	        </xpath>
+            <xpath expr="//table[@class='table table-condensed']/tbody/tr[2]/td[3]" position="after">
+                <td/>
+                <td/>
+                <td/>
+	        </xpath>
+            <xpath expr="//div[@class='page']" position="after">
+                <style>
+                    .block
+                    {
+                        display: block;
+                    }
+                    .inline-block
+                    {
+                        display: inline-block;
+                    }
+                    .square
+                    {
+                        height: 15px;
+                        width: 15px;
+                        background-color: #fff;
+                        border: 1px solid black;
+                        display: inline-block;
+                    }
+                    .middle
+                    {
+                        vertical-align: middle;
+                        display: inline-block;
+                        margin-top: -10px;
+                    }
+                    .fl
+                    {
+                        float: left;
+                    }
+                    .fr
+                    {
+                        float: right;
+                    }
+                    .center
+                    {
+                        text-align: center;
+                    }
+                    .vam
+                    {
+                        vertical-align: middle;
+                    }
+                    .vab
+                    {
+                        vertical-align: bottom;
+                    }
+                    .w100
+                    {
+                        width: 100%;
+                    }
+                    .border-table
+                    {
+                        border: 1px solid black;
+                        padding: 3px;
+                    }
+                </style>
+                <div style="page-break-after: always;"></div>
+                <div class="page">
+                    <div class="row" style="margin-bottom: 20px;">
+                        <p>Pengecekan Pengiriman Produk Jadi</p>
+                        <table class="border-table w100">
+                            <tr class="border-table">
+                                <th class="border-table">No</th>
+                                <th class="border-table">Parameter Pengecekan</th>
+                                <th class="border-table">Ya</th>
+                                <th class="border-table">Tidak</th>
+                                <th class="border-table">Komentar</th>
+                            </tr>
+                            <tr class="border-table">
+                                <td class="border-table">1</td>
+                                <td class="border-table">Produk yang dikirim terkemas rapih dan memiliki identifikasi yang jelas</td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                            </tr>
+                            <tr class="border-table">
+                                <td class="border-table">2</td>
+                                <td class="border-table">Kendaraan dalam kondisi bersih dan tidak ada arome menyimpang</td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                            </tr>
+                            <tr class="border-table">
+                                <td class="border-table">3</td>
+                                <td class="border-table">Produk tidak ciampur dengan produk selain makanan</td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                            </tr>
+                            <tr class="border-table">
+                                <td class="border-table">4</td>
+                                <td class="border-table">Produk tidak dicampur dengan produk yang menimbulkan kontaminasi dan najis (bersifat haram)</td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                                <td class="border-table"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td class="text-center" width="50%">Diperiksa Oleh</td>
+                                    <td class="text-center" width="50%">Disetujui Oleh</td>
+                                </tr>
+                                <tr>
+                                    <td style="height:100px;vertical-align:bottom">
+                                        <div style="border:1px solid black;width:200px;"/>
+                                        <p class="text-center">Logistic Staff</p>
+                                    </td>
+                                    <td style="height:100px;vertical-align:bottom;">
+                                        <div style="border:1px solid black;width:200px;"/>
+                                        <p class="text-center">Logistic Manager</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
