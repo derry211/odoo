@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="izi_marketplace_javara.view_order_tree_date" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_dates.view_order_tree_date"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='requested_date']" position="replace"/>
+            </field>
+        </record>
+        <record id="izi_marketplace_javara.view_quotation_tree_date" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_dates.view_quotation_tree_date"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='requested_date']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="izi_marketplace_javara.view_order_tree" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mp_accept_deadline']" position="replace"/>
+                <!-- <xpath expr="//field[@name='fiscal_position_id']" position="replace"/> -->
+            </field>
+        </record>
+
+        <record id="izi_marketplace_javara.view_quotation_tree" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mp_accept_deadline']" position="replace"/>
+                <!-- <xpath expr="//field[@name='fiscal_position_id']" position="replace"/> -->
+            </field>
+        </record>
+    </data>
+</odoo>

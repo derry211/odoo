@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="izi_marketplace_javara.view_res_partner_filter" model="ir.ui.view">
+        <field name="name">Marketplace Contact</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="supplier" position="after">
+                <separator />
+                <filter string="Shipping Address" name='type' domain="[('type', '=', 'delivery')]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+</odoo>
