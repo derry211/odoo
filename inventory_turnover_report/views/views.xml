@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="inventory_turnover_report.list">
+      <field name="name">inventory_turnover_report list</field>
+      <field name="model">inventory_turnover_report.inventory_turnover_report</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="inventory_turnover_report.action_window">
+      <field name="name">inventory_turnover_report window</field>
+      <field name="res_model">inventory_turnover_report.inventory_turnover_report</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="inventory_turnover_report.action_server">
+      <field name="name">inventory_turnover_report server</field>
+      <field name="model_id" ref="model_inventory_turnover_report_inventory_turnover_report"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="inventory_turnover_report" id="inventory_turnover_report.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="inventory_turnover_report.menu_1" parent="inventory_turnover_report.menu_root"/>
+    <menuitem name="Menu 2" id="inventory_turnover_report.menu_2" parent="inventory_turnover_report.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="inventory_turnover_report.menu_1_list" parent="inventory_turnover_report.menu_1"
+              action="inventory_turnover_report.action_window"/>
+    <menuitem name="Server to list" id="inventory_turnover_report" parent="inventory_turnover_report.menu_2"
+              action="inventory_turnover_report.action_server"/>
+    -->
+  </data>
+</odoo>
