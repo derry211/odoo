@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pos_discount_bank_view_search" model="ir.ui.view">
+            <field name="name">pos.discount.bank.search</field>
+            <field name="model">pos.discount.bank</field>
+            <field name="arch" type="xml">
+                <search string="Discount Bank">
+                    <field name="name"/>
+                    <field name="min_amount"/>
+                    <field name="max_amount"/>
+                    <field name="disc_amount"/>
+                    <field name="disc_percent"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="pos_discount_bank_view_tree" model="ir.ui.view">
+            <field name="name">pos.discount.bank.tree</field>
+            <field name="model">pos.discount.bank</field>
+            <field name="arch" type="xml">
+                <tree string="Discount Bank">
+                    <field name="name"/>
+                    <field name="min_amount"/>
+                    <field name="max_amount"/>
+                    <field name="disc_amount"/>
+                    <field name="disc_percent"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_discount_bank_view_form" model="ir.ui.view">
+            <field name="name">pos.discount.bank.form</field>
+            <field name="model">pos.discount.bank</field>
+            <field name="arch" type="xml">
+                <form string="Discount Bank">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Discount Bank"/>
+                            <h1><field name="name" placeholder="Title"/></h1>
+                        </div>
+                        <group col="4">
+                            <field name="min_amount"/>
+                            <field name="max_amount"/>
+                            <field name="disc_amount"/>
+                            <field name="disc_percent"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pos_discount_bank_action" model="ir.actions.act_window">
+            <field name="name">Discount Bank</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.discount.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="pos_discount_bank_menu" parent="point_of_sale.menu_point_config_product" action="pos_discount_bank_action" sequence="60"/>
+
+    </data>
+</odoo>

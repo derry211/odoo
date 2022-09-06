@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="web.internal_layout">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <span t-esc="company.name"/>
+                    </div>
+                    <div class="col-xs-3 text-right">
+                        <ul class="list-inline">
+                            <li><span class="page"/></li>
+                            <li>/</li>
+                            <li><span class="topage"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="article">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+        <template id="mrp_production_custom_reports_pre">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <!-- <div class="header">
+                            <div class="row">
+                                <div style="width: 100%; margin: auto;">
+                                    <p>PT. Kampung Kearifan Indonesia</p>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="page">
+                            <style>
+                                .block
+                                {
+                                    display: block;
+                                }
+                                .inline-block
+                                {
+                                    display: inline-block;
+                                }
+                                .square
+                                {
+                                    height: 25px;
+                                    width: 25px;
+                                    background-color: #fff;
+                                    border: 1px solid black;
+                                    display: inline-block;
+                                }
+                                .middle
+                                {
+                                    vertical-align: middle;
+                                    display: inline-block;
+                                    margin-top: -10px;
+                                }
+                                .fl
+                                {
+                                    float: left;
+                                }
+                                .center
+                                {
+                                    text-align: center;
+                                }
+                                .vam
+                                {
+                                    vertical-align: middle;
+                                }
+                                .vab
+                                {
+                                    vertical-align: bottom;
+                                }
+                                .table-bordered thead tr th,
+                                .table-bordered tbody tr td,
+                                .table-bordered tr,
+                                .border-table
+                                {
+                                    border: 1px solid black !important;
+                                    padding: 3px;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                }
+                                .text-left {
+                                    vertical-align: top !important;
+                                    text-align: left !important;
+                                }
+                                .pbaa
+                                {
+                                    page-break-after: always;
+                                }
+                                .h70
+                                {
+                                    height: 70px;
+                                }
+                                .h100
+                                {
+                                    height: 100px;
+                                }
+                                .w100
+                                {
+                                    width: 100%;
+                                }
+                                .w68
+                                {
+                                    width: 68.5%;
+                                }
+                                .w31
+                                {
+                                    width: 31.5%;
+                                }
+                                .m10
+                                {
+                                    margin-bottom: 10px;
+                                }
+                            </style>
+                            <div class="oe_structure"/>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2><span t-field="o.name" style="font-weight: bold;"/></h2>
+                                </div>
+                            </div>
+                            <div class="row mb32">
+                                <div class="col-xs-12">
+                                    Product Name : <span t-field="o.product_id" style="font-weight: bold;"/>
+                                </div>
+                                <div class="col-xs-6">
+                                    Barcode : <span t-field="o.product_id.barcode" style="font-weight: bold;"/><br/>
+                                    Qty Target : <span t-field="o.product_qty"/> <span t-field="o.product_uom_id"/>
+                                </div>
+                                <div class="col-xs-6">
+                                    Lot # : ____________ <br/>
+                                    Best Before Date :  ____ - ____ - ____________
+                                </div>
+                           </div>
+                            <!-- <div>
+                                <div class="square"/> <div class="square"/> <p class="middle">-</p> <div class="square"/> <div class="square"/> <p class="middle">-</p> <div class="square"/> <div class="square"/> <div class="square"/> <div class="square"/>
+                            </div> -->
+                            <!-- <p class="block">INPUT :</p> -->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">To Consume Material</th>
+                                        <th colspan="4">Consumed Material</th>
+                                    </tr>
+                                    <tr>
+                                        <th width="50%">Material Name</th>
+                                        <th>Qty</th>
+                                        <th width="100">Lot #</th>
+                                        <th>Consumed Qty</th>
+                                        <th>Reject</th>
+                                        <th>Retur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                                                       
+                                    <tr t-foreach="o.move_raw_ids.sorted(key=lambda b: b.product_id.name)" t-as="line">                               
+                                        <td class="text-left"><span t-field="line.product_id"/></td>          
+                                        <td>                                                                  
+                                            <span t-field="line.product_uom_qty"/>                            
+                                            <span t-field="line.product_uom.name" groups="product.group_uom"/>
+                                        </td>                                                                 
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                    </tr>                                                                     
+                                    <tr>                                                                      
+                                        <td><br/></td>                                                        
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                    </tr>                                                                     
+                                    <tr>                                                                      
+                                        <td><br/></td>                                                        
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                    </tr>                                                                     
+                                    <tr>                                                                      
+                                        <td><br/></td>                                                        
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                        <td></td>                                                             
+                                    </tr>                                                                     
+                                </tbody>                                                                      
+                            </table>
+                            
+                            <div class="m10" />
+                            <div class="row" style="page-break-inside: avoid;">
+                                <p class="block center" style="font-weight: bold;">FORM PENGGUNAAN, CLEANING DAN SANITASI 70% ALKOHOL</p>
+                                <p class="block">Nomor MO  : <span t-esc="o.name"/></p>
+                                <p class="block">Tanggal  : ____ - ____ - ________</p>
+                                <p class="block" style="font-weight: bold;">Penggunaan Alat dan Sanitasi</p>
+                                <table class="border-table block w100">
+                                    <thead class="border-table">
+                                        <tr class="border-table center">
+                                            <th rowspan="2" class="border-table center">No</th>
+                                            <th colspan="3" rowspan="2" class="border-table center">Nama Mesin/Alat</th>
+                                            <th colspan="7" class="border-table center">Cleaning dan Sanitasi</th>
+                                            <th rowspan="2" class="border-table center">Keterangan</th>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <th class="border-table center">Cuci</th>
+                                            <th class="border-table center">Bilas</th>
+                                            <th class="border-table center">Flushing</th>
+                                            <th class="border-table center">Lap</th>
+                                            <th class="border-table center">Sanitasi</th>
+                                            <th class="border-table center">Keringkan</th>
+                                            <th class="border-table center">Wrapping</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="border-table">
+                                        <tr class="border-table">
+                                            <td rowspan="2" class="border-table"></td>
+                                            <td rowspan="2" colspan="2" class="border-table" style="color: white;">Barang</td>
+                                            <td class="border-table center">Awal Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td class="border-table center">Akhir Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td rowspan="2" class="border-table"></td>
+                                            <td rowspan="2" colspan="2" class="border-table" style="color: white;">Barang</td>
+                                            <td class="border-table center">Awal Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td class="border-table center">Akhir Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr><tr class="border-table">
+                                            <td rowspan="2" class="border-table"></td>
+                                            <td rowspan="2" colspan="2" class="border-table" style="color: white;">Barang</td>
+                                            <td class="border-table center">Awal Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td class="border-table center">Akhir Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr><tr class="border-table">
+                                            <td rowspan="2" class="border-table"></td>
+                                            <td rowspan="2" colspan="2" class="border-table" style="color: white;">Barang</td>
+                                            <td class="border-table center">Awal Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td class="border-table center">Akhir Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr><tr class="border-table">
+                                            <td rowspan="2" class="border-table"></td>
+                                            <td rowspan="2" colspan="2" class="border-table" style="color: white;">Barang</td>
+                                            <td class="border-table center">Awal Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                        <tr class="border-table">
+                                            <td class="border-table center">Akhir Proses</td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                            <td class="border-table center"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>Note : OK : Kondisi alat siap digunakan, tidak ada kerusakan, tidak ada kemungkinan kontaminasi silang akibat alat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tidak : Alat mengalami kerusakan, ada kemungkinan kontaminasi silang dari alat</td>
+                                    </tr>                    
+                                </table>
+                                <div class="m10"/>
+                                <table style="width:100%;">
+                                    <tr style="text-center">
+                                        <td style="width:50%; text-align: center;"><p class="text-center">Dibuat Oleh,</p></td>
+                                        <td style="width:50%; text-align: center;"><p class="text-center">Diperiksa Oleh,</p></td>
+                                    </tr>
+                                    <tr style="text-center">
+                                        <td style="height:100px; width:50%; text-align: center; vertical-align:bottom">
+                                            <strong><span>(_____________________________)</span></strong>
+                                        </td>
+                                        <td style="height:100px; width:50%; text-align: center; vertical-align:bottom;">
+                                            <strong><span>(_____________________________)</span></strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="m10"/>
+                            <div style="page-break-after: always;"></div>
+                            <table class="border-table block w100">
+                                <thead class="border-table">
+                                    <tr class="border-table">
+                                        <th class="border-table w68" colspan="3">Serah Terima RM dan PM</th>
+                                        <td class="border-table w31 text-left" colspan="3" rowspan="24">
+                                            <![CDATA[
+                                                <p style="font-weight: bold;">Catatan</p>
+                                                <br>
+                                                <p>Hasil analisa awal produksi</p>
+                                                <br>
+                                                <p>Kadar air :</p>
+                                                <br>
+                                                <p>Warna :</p>
+                                                <br>
+                                                <p>Aroma :</p>
+                                                <br>
+                                                <p>Rasa :</p>
+                                                <br>
+                                                <p>Tekstur :</p>
+                                                <br>
+                                                <p>Benda Asing :</p>
+                                            ]]>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table center" width="20%">Diserahkan Oleh</td>
+                                        <td class="border-table center" width="20%">Dicek Oleh</td>
+                                        <td class="border-table center" width="19%">Diterima Oleh</td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table h70"></td>
+                                        <td class="border-table h70"></td>
+                                        <td class="border-table h70"></td>
+                                    </tr>
+                                    <tr class="border-table center">
+                                        <td class="border-table center">Warehouse</td>
+                                        <td class="border-table center">QC WH</td>
+                                        <td class="border-table center">Produksi</td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <th class="border-table" colspan="3">Hasil Produksi</th>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">QC Release :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Qty Reject :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Nama SDM :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Jam Produksi :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table center">
+                                        <td class="border-table center" colspan="2">Diserahkan Oleh</td>
+                                        <td class="border-table center">Dicek Oleh</td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table h70" colspan="2"></td>
+                                        <td class="border-table h70"></td>
+                                    </tr>
+                                    <tr class="border-table center">
+                                        <td class="border-table center" colspan="2">Staff Produksi</td>
+                                        <td class="border-table center">QC Inline</td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <th class="border-table" colspan="3">Serah Terima Finish Good</th>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Qty :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Isi Per Box :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Qty Box :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <th class="border-table" colspan="3">Pengecekan QC</th>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Release
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Hold
+                                        </td>
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Reject
+                                        </td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Lot Number Outer :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table">Best Before Outer :</td>
+                                        <td class="border-table" colspan="2"></td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <th class="border-table" colspan="3">Sertifikasi</th>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Organic EU
+                                        </td>
+                                        <td style="padding: 5px;" colspan="2">
+                                            <div class="square"/> Organic SNI 6729:2016
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Organic USDA-NOP
+                                        </td>
+                                        <td style="padding: 5px;" colspan="2">
+                                            <div class="square"/> Halal MUI
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td style="padding: 5px;">
+                                            <div class="square"/> Organic JAS
+                                        </td>
+                                        <td style="padding: 5px;" colspan="2">
+                                            <div class="square"/> SNI 3556:2010 Garam Konsumsi Beryodium
+                                        </td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table center">Diserahkan Oleh</td>
+                                        <td class="border-table center">Dicek Oleh</td>
+                                        <td class="border-table center">Diterima Oleh</td>
+                                        <td class="border-table center">Disetujui Oleh</td>
+                                    </tr>
+                                    <tr class="border-table">
+                                        <td class="border-table h70"></td>
+                                        <td class="border-table h70"></td>
+                                        <td class="border-table h70"></td>
+                                        <td class="border-table h70"></td>
+                                    </tr>
+                                    <tr class="border-table center">
+                                        <td class="border-table center">SPV Produksi</td>
+                                        <td class="border-table center">QC WH</td>
+                                        <td class="border-table center">Warehouse</td>
+                                        <td class="border-table center">Production Head</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>             
+        </template>
+    </data>
+</odoo>

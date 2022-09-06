@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            string="Pre-production Order" 
+            id="action_report_production_order" 
+            model="mrp.production" 
+            name="mrp_production_reports.mrp_production_custom_reports_pre"
+            file="mrp_production_reports.report.mrp_production_custom_reports_pre" 
+            report_type="qweb-pdf"
+            print_report_name="'Pre-production Order - %s' % object.name"
+        />
+    </data>
+</odoo>

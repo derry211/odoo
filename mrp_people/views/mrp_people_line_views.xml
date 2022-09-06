@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_people_form">
+            <field name="name">mrp.people.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_id']" position="after">
+                    <field name="people_count"/>
+                </xpath>
+                 <xpath expr="//field[@name='date_planned_start']" position="after">
+                    <field name="done_at" attrs="{'invisible':[('state', '!=', 'done')]}"/>
+                    <field name="days" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook/page[3]" position="after">
+                    <page string="Worker">
+                        <field name="people_ids" widget="many2many" attrs="{'readonly': [('state', '=', 'done')]}">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

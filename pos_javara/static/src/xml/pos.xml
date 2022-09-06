@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="Product">
+        <t t-jquery=".product-img" t-operation="append">
+            <span
+                t-attf-class="qty-tag #{product.qty_available lte 0 ? 'not-available':''}"
+            >
+                <t t-esc="product.qty_available" />
+            </span>
+        </t>
+    </t>
+    <t t-extend="Orderline">
+        <t t-jquery=".info-list>t:first-child">
+            this.attr('t-if', "line.get_quantity_str() !== '1' || line.selected || line.get_product().qty_available lt line.quantity ");
+        </t>
+        <t t-jquery="t[t-esc='line.get_quantity_str()']" t-operation="after">
+            <t
+                t-if="line.get_product().type == 'product'"
+            >
+                <t t-set='qty_available' t-value='line.get_product().qty_available' />
+                (of <span
+                    t-attf-class="qty-info #{qty_available lt line.quantity ? 'not-available':''}"
+                >
+                    <t t-esc="qty_available" />
+                </span>)
+            </t>
+        </t>
+    </t>
+<!--    <t t-extend='ClientDetails'>-->
+<!--        <t t-jquery='.client-details-right' t-operation='prepend'>-->
+<!--            <div class='client-detail'>-->
+<!--                <span class='label'>Member</span>-->
+<!--                <span>-->
+<!--                    <t t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)' />-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </t>-->
+<!--    <t t-extend='ClientListScreenWidget'>-->
+<!--        <t t-jquery='.client-list thead tr' t-operation='append'>-->
+<!--            <th>Member</th>-->
+<!--        </t>-->
+<!--    </t>-->
+</templates>

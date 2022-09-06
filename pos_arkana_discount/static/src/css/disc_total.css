@@ -1,0 +1,11 @@
+.pos .order .summary .line .global_disc {
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.pos .order .summary .line .disc_bank {
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+}

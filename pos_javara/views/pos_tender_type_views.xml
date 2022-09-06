@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pos_tender_type_view_search" model="ir.ui.view">
+            <field name="name">pos.tender.type.search</field>
+            <field name="model">pos.tender.type</field>
+            <field name="arch" type="xml">
+                <search string="Tender Types">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="pos_tender_type_view_tree" model="ir.ui.view">
+            <field name="name">pos.tender.type.tree</field>
+            <field name="model">pos.tender.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tender Types" editable="top">
+                    <field name="name" placeholder="Title"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_tender_type_view_form" model="ir.ui.view">
+            <field name="name">pos.tender.type.form</field>
+            <field name="model">pos.tender.type</field>
+            <field name="arch" type="xml">
+                <form string="Tender Types">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Tender Type"/>
+                            <h1><field name="name" placeholder="Title"/></h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pos_tender_type_action" model="ir.actions.act_window">
+            <field name="name">Tender Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.tender.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="pos_tender_type_menu" parent="point_of_sale.menu_point_config_product" action="pos_tender_type_action" sequence="50"/>
+
+    </data>
+</odoo>

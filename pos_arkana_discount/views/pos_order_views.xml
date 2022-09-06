@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- pos.order inherit form view -->
+        <record id="view_pos_pos_form_inherit_global_disc" model="ir.ui.view">
+            <field name="name">pos.order.inherit.view.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <field name="fiscal_position_id" position="after">
+                    <field name="name_bank_disc"/>
+                    <field name="disc_bank_amount"/>
+                    <field name="disc_type"/>
+                    <field name="global_disc"/>
+                </field>
+
+                <xpath expr="//tree/field[@name='discount']" position="after">
+                    <field name="global_disc_line"/>
+                </xpath>
+                
+            </field>
+        </record>
+    </data>
+</odoo>

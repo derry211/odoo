@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_report_pos_order_search" model="ir.ui.view">
+            <field name="name">report.pos.order.search</field>
+            <field name="model">report.pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_report_pos_order_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_categ_id']" position="after">
+                    <field name="tender_type_id"/>
+                    <field name="payment_journal_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_report_pos_order_graph" model="ir.ui.view">
+            <field name="name">report.pos.order.graph</field>
+            <field name="model">report.pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_report_pos_order_graph"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_categ_id']" position="after">
+                    <field name="tender_type_id" type="row"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

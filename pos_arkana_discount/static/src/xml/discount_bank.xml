@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="DiscountBankButton">
+        <div class='control-button'>
+            <i class='fa fa-percent' /> <t t-esc='widget.get_current_bank_discount_name()'/>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_member,res_partner_member_all,model_res_partner_member,base.group_user,1,1,1,1
+access_pos_tender_type_all,pos_tender_type_all,model_pos_tender_type,base.group_user,1,1,1,1
+access_pos_discount_bank_all,pos_discount_bank_all,model_pos_discount_bank,base.group_user,1,1,1,1

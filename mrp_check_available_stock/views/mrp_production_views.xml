@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="mrp_production_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='button_mark_done'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('check_to_done', '=', False), ('consumed_less_than_planned', '=', True), ('state', 'in', ['to_approve'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('check_to_done', '=', False), ('consumed_less_than_planned', '=', False), ('state', 'in', ['to_approve'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_assign']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('availability', 'in', ('assigned', 'none')), ('is_locked', '=', False), ('state', 'in', ['to_approve'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='post_inventory']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('post_visible', '=', False), ('state', 'in', ['to_approve'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_scrap']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', '|', ('availability', '=', 'none'), ('state', 'in', ('cancel')), ('is_locked', '=', False), ('state', 'in', ['to_approve'])]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', '|', ('state', '=', 'cancel'), ('id', '=', False), ('is_locked', '=', False), ('state', 'in', ['to_approve'])]}</attribute>
+                    <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][2]" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked'][1]" position="after">
+                    <button name="action_reject" attrs="{'invisible': [('state', '!=', 'to_approve')]}" string="Reject" type="object" class="btn-danger" groups="mrp.group_mrp_manager"/>
+                    <button name="action_approve" attrs="{'invisible': [('state', '!=', 'to_approve')]}" string="Approve" type="object" class="oe_highlight" groups="mrp.group_mrp_manager"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

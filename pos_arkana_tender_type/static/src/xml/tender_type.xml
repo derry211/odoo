@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="TenderTypeButton">
+        <div class='control-button'>
+            <i class='fa fa-tag' /><t t-esc='widget.get_current_tender_type_name()'/>
+        </div>
+    </t>
+</templates>

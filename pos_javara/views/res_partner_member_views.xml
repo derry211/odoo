@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_partner_member_view_search" model="ir.ui.view">
+            <field name="name">res.partner.member.search</field>
+            <field name="model">res.partner.member</field>
+            <field name="arch" type="xml">
+                <search string="Membership">
+                    <field name="name"/>
+                    <field name="pricelist_id"/>
+                    <field name="active"/>
+                    <field name="partner_ids"/>
+                    <separator/>
+                    <filter string="All" name="all" domain="['|', ('active', '=', False), ('active', '=', True)]"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Non Active" name="non_active" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" domain="[]" context="{'group_by':'active'}"/>
+                        <filter string="Pricelist" domain="[]" context="{'group_by':'pricelist_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="res_partner_member_view_tree" model="ir.ui.view">
+            <field name="name">res.partner.member.tree</field>
+            <field name="model">res.partner.member</field>
+            <field name="arch" type="xml">
+                <tree string="Membership">
+                    <field name="name"/>
+                    <field name="pricelist_id"/>
+                    <field name="active"/>
+                    <field name="partner_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_partner_member_view_form" model="ir.ui.view">
+            <field name="name">res.partner.member.form</field>
+            <field name="model">res.partner.member</field>
+            <field name="arch" type="xml">
+                <form string="Membership">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Member Name"/>
+                            <h1><field name="name" placeholder="Member Name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="pricelist_id"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <separator string="Member"/>
+                        <field name="partner_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="res_partner_member_action" model="ir.actions.act_window">
+            <field name="name">Membership</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.member</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="res_partner_membership_menu" parent="point_of_sale.pos_config_menu_catalog" action="res_partner_member_action" sequence="30"/>
+
+    </data>
+</odoo>
