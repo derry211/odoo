@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <link href="/pos_arkana_member_group/static/src/css/icon.css" rel="stylesheet"/>
+            <script type="text/javascript" src="/pos_arkana_member_group/static/src/js/group_membership.js"></script>
+        </xpath>
+    </template>
+</odoo>

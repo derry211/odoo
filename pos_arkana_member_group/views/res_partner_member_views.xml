@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- res.partner.member inherit form view -->
+        <record id="res_partner_member_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.member.inherit.view.form</field>
+            <field name="model">res.partner.member</field>
+            <field name="inherit_id" ref="pos_javara.res_partner_member_view_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_title" position="before">
+                    <div>
+                        <field name="icon" widget="image" class="oe_avatar"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
